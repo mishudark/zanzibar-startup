@@ -9,7 +9,7 @@ ifeq ($(.UNAME_S),Darwin)
 	.BAZELISK = ./tools/bazelisk-darwin-amd64
 endif
 
-PREFIX                = ${HOME}
+PREFIX                = /tmp
 BAZEL_OUTPUT          = --output_base=${PREFIX}/bazel/output
 BAZEL_REPOSITORY      = --repository_cache=${PREFIX}/bazel/repository_cache
 BAZEL_FLAGS           = --experimental_remote_download_outputs=minimal --experimental_inmemory_jdeps_files --experimental_inmemory_dotd_files
@@ -43,7 +43,7 @@ docker: ## Build docker images
 
 test: ## Test
 	@make version
-	@$(.BAZEL) test $(TEST_FLAGS) //pkg/... --repository_cache=/tmp/bazel
+	@$(.BAZEL) test $(TEST_FLAGS) //pkg/...
 
 gen: # Generate BUILD.bazel files
 	@make version
