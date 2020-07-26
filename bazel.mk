@@ -43,7 +43,7 @@ docker: ## Build docker images
 
 test: ## Test
 	@make version
-	@$(.BAZEL) test $(TEST_FLAGS) //pkg/...
+	@$(.BAZEL) test $(TEST_FLAGS) //pkg/... --repository_cache=/tmp/bazel
 
 gen: # Generate BUILD.bazel files
 	@make version
