@@ -16,6 +16,6 @@ jobs:
       uses: actions/cache@v2
       with:
         path: |
-          /tmp/bazel
+          /home/runner/bazel
         key: ${{ runner.os }}
     - run: make test
