@@ -1,12 +1,12 @@
-.BAZELISK         := bazel
+.BAZELISK         := ./tools/bazelisk
 .UNAME_S          := $(shell uname -s)
 .BAZELISK_VERSION := 1.5.0
 
 ifeq ($(.UNAME_S),Linux)
-	.BAZELISK = bazel
+	.BAZELISK = ./tools/bazelisk-linux-amd64
 endif
 ifeq ($(.UNAME_S),Darwin)
-	.BAZELISK = bazel
+	.BAZELISK = ./tools/bazelisk-darwin-amd64
 endif
 
 PREFIX                = ${HOME}
@@ -21,7 +21,7 @@ LINUX                 = --platforms=@io_bazel_rules_go//go/toolchain:linux_amd64
 INCOMPATIBLE          = --incompatible_no_rule_outputs_param=false
 
 # Put all flags together
-.BAZEL      = bazel $(BAZEL_OUTPUT)
+.BAZEL      = $(.BAZELISK) $(BAZEL_OUTPUT)
 
 BUILD_FLAGS = $(BAZEL_REPOSITORY) $(BAZEL_FLAGS) $(BAZEL_REMOTE) $(BAZEL_BUILDKITE_BUILD)
 TEST_FLAGS  = $(BAZEL_REPOSITORY) $(BAZEL_FLAGS) $(BAZEL_REMOTE) $(BAZEL_BUILDKITE)
@@ -180,6 +180,7 @@ setup: # Setup the initial files to run bazel
 	@make init
 
 init: # Generate the initial files to run bazel
+	mkdir tools
 	@make bazelisk
 	echo "$$WORKSPACE" > WORKSPACE
 	echo "$$BUILD_BAZEL" > BUILD.bazel
