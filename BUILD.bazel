@@ -4,5 +4,5 @@ gazelle(
     name = "gazelle",
     prefix = "github.com/mishudark/zanzibar-startup",
 )
-# gazelle:exclude protos
 # gazelle:proto disable
+# gazelle:proto disable_global

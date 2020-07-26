@@ -23,8 +23,8 @@ INCOMPATIBLE          = --incompatible_no_rule_outputs_param=false
 # Put all flags together
 .BAZEL      = $(.BAZELISK) $(BAZEL_OUTPUT)
 
-BUILD_FLAGS = $(BAZEL_REPOSITORY) $(BAZEL_FLAGS) $(BAZEL_REMOTE) $(BAZEL_BUILDKITE_BUILD)
-TEST_FLAGS  = $(BAZEL_REPOSITORY) $(BAZEL_FLAGS) $(BAZEL_REMOTE) $(BAZEL_BUILDKITE)
+BUILD_FLAGS = $(BAZEL_REPOSITORY) $(BAZEL_FLAGS) $(BAZEL_BUILDKITE_BUILD)
+TEST_FLAGS  = $(BAZEL_REPOSITORY) $(BAZEL_FLAGS) $(BAZEL_BUILDKITE)
 
 version: ## Prints the bazel version
 	@$(.BAZELISK) version
@@ -43,7 +43,7 @@ docker: ## Build docker images
 
 test: ## Test
 	@make version
-	@$(.BAZEL) build $(TEST_FLAGS) //pkg/...
+	@$(.BAZEL) test $(TEST_FLAGS) //pkg/...
 
 gen: # Generate BUILD.bazel files
 	@make version

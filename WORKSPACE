@@ -31,7 +31,6 @@ http_archive(
 load(
     "@bazel_gazelle//:deps.bzl",
     "gazelle_dependencies",
-    "go_repository",
 )
 
 go_rules_dependencies()
@@ -69,7 +68,23 @@ http_archive(
 )
 
 load("@io_bazel_rules_k8s//k8s:k8s.bzl", "k8s_repositories")
+
 k8s_repositories()
 
-#load("//:repositories.bzl", "go_repositories")
-#go_repositories()
+
+http_archive(
+    name = "com_google_protobuf",
+    strip_prefix = "protobuf-3.12.3",
+    urls = ["https://github.com/google/protobuf/archive/v3.12.3.zip"],
+)
+
+load("@com_google_protobuf//:protobuf_deps.bzl", "protobuf_deps")
+
+protobuf_deps()
+
+
+
+load("//:repositories.bzl", "go_repositories")
+
+# gazelle:repository_macro repositories.bzl%go_repositories
+go_repositories()
